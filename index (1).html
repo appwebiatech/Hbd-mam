@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Ibu Tercinta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* --- 1. SETTING TEMA PREMIUM --- */
+        :root {
+            --primary: #e84393; /* Pink Tua */
+            --secondary: #fd79a8; /* Pink Muda */
+            --gold: #d4af37;      /* Emas Mewah */
+            --bg-warm: #fff5f7;   /* Latar Hangat */
+            --glass: rgba(255, 255, 255, 0.8);
+            --shadow-soft: 0 10px 30px rgba(232, 67, 147, 0.15);
+            --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: radial-gradient(circle at top left, var(--bg-warm), #fdfbfb);
+            color: #555;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- LATAR BELAKANG PARTIKEL (Emas & Kelopak) --- */
+        .falling-particles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; overflow: hidden;
+        }
+        .particle {
+            position: absolute; border-radius: 50%; opacity: 0.5;
+            animation: fall linear infinite;
+        }
+        .p-gold { background: var(--gold); width: 8px; height: 8px; box-shadow: 0 0 5px var(--gold); }
+        .p-petal { background: var(--secondary); width: 15px; height: 15px; border-radius: 15px 0; }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- TOMBOL MUSIK --- */
+        .music-btn {
+            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
+            width: 55px; height: 55px; border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            border: 2px solid white; color: white; font-size: 20px;
+            cursor: pointer; box-shadow: var(--shadow-gold);
+            display: flex; justify-content: center; align-items: center;
+            transition: 0.3s;
+        }
+        .music-btn.playing i { animation: spin 4s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- TYPOGRAPHY UMUM --- */
+        h1, h2, .script-font { font-family: 'Great Vibes', cursive; font-weight: normal; }
+        .section-title {
+            text-align: center; font-size: 3rem; color: var(--primary);
+            margin: 80px 0 40px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 90vh; display: flex; align-items: center; justify-content: center;
+            perspective: 1000px; padding-top: 40px;
+        }
+        .hero-content {
+            text-align: center; background: var(--glass); padding: 60px 40px;
+            border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%; /* Bentuk organik */
+            backdrop-filter: blur(8px); border: 2px solid rgba(255,255,255,0.5);
+            box-shadow: var(--shadow-soft), inset 0 0 20px rgba(255,255,255,0.5);
+            transform-style: preserve-3d; transition: transform 0.2s ease-out;
+        }
+        .hero h1 { font-size: 5rem; background: linear-gradient(to right, var(--primary), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; }
+        .hero p { font-size: 1.3rem; margin-top: 10px; color: #777; }
+        .sub-text { font-family: 'Parisienne', cursive; font-size: 2rem; color: var(--gold); margin-bottom: 10px; display: block;}
+
+        /* --- FITUR BARU: KARTU ULANG TAHUN 3D --- */
+        .card-section { perspective: 1500px; display: flex; justify-content: center; margin: 50px 0; }
+        .birthday-card {
+            width: 350px; height: 450px; position: relative;
+            transform-style: preserve-3d; transition: transform 1s; cursor: pointer;
+        }
+        .birthday-card.opened { transform: rotateY(-160deg); } /* Efek membuka */
+
+        .card-face {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: 15px; overflow: hidden; box-shadow: var(--shadow-gold);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border: 3px solid var(--gold); background: white;
+        }
+        /* Bagian Depan Kartu */
+        .card-front {
+            background: linear-gradient(135deg, #fff0f6 0%, #fff 100%); z-index: 2;
+        }
+        .card-front h2 { font-size: 3.5rem; color: var(--primary); margin-top: 20px;}
+        .card-front img { width: 80%; margin-bottom: 20px; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));}
+        .click-hint { position: absolute; bottom: 20px; font-size: 0.9rem; color: var(--gold); animation: pulse 1.5s infinite; }
+        
+        /* Bagian Dalam Kartu (Muncul saat dibuka) */
+        .card-inside {
+            transform: rotateY(180deg); z-index: 1; background: #fffaf0; padding: 30px; text-align: center;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .card-inside h3 { font-family: 'Parisienne', cursive; font-size: 2.2rem; color: var(--primary); margin-bottom: 20px; }
+        .card-inside p { font-size: 1.1rem; line-height: 1.8; color: #666; font-style: italic;}
+
+        @keyframes pulse { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+
+        /* --- GALERI POLAROID CANTIK --- */
+        .gallery-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+        .polaroid {
+            background: white; padding: 15px 15px 50px 15px; box-shadow: var(--shadow-soft);
+            transform: rotate(var(--r)); transition: 0.4s ease-in-out; position: relative; z-index: 1;
+        }
+        .polaroid:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 10; box-shadow: var(--shadow-gold); }
+        .polaroid img { width: 250px; height: 250px; object-fit: cover; filter: sepia(20%); }
+        .polaroid::after { content: attr(data-caption); position: absolute; bottom: 15px; width: 100%; text-align: center; left: 0; font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: #777; }
+
+        /* --- UCAPAN & DATABASE SECTION --- */
+        .wishes-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;}
+        @media (max-width: 768px) { .wishes-layout { grid-template-columns: 1fr; } }
+
+        /* Form Styling */
+        .form-card { background: white; padding: 35px; border-radius: 20px; box-shadow: var(--shadow-gold); border: 2px solid var(--gold); }
+        .input-field { 
+            width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #eee; 
+            border-radius: 10px; font-family: inherit; transition: 0.3s; background: #fffaf0;
+        }
+        .input-field:focus { border-color: var(--primary); outline: none; background: white; }
+        .btn-submit {
+            width: 100%; padding: 15px; background: linear-gradient(to right, var(--primary), var(--gold));
+            border: none; border-radius: 50px; color: white; font-weight: bold; font-size: 1.1rem;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.6); }
+
+        /* Papan Ucapan (Wishes Board) */
+        .board-container {
+            background: white; border-radius: 20px; padding: 30px;
+            box-shadow: var(--shadow-soft); position: relative;
+            border: 1px dashed var(--gold);
+            /* Background pattern halus untuk hasil download yang bagus */
+            background-image: radial-gradient(#e84393 0.5px, transparent 0.5px), radial-gradient(#e84393 0.5px, #ffffff 0.5px);
+            background-size: 20px 20px; background-position: 0 0, 10px 10px;
+        }
+        .wishes-list { max-height: 500px; overflow-y: auto; padding-right: 10px; }
+        /* Custom Scrollbar */
+        .wishes-list::-webkit-scrollbar { width: 8px; }
+        .wishes-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        .wish-note {
+            background: #fff; padding: 20px; margin-bottom: 20px; position: relative;
+            border-radius: 2px; box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+            font-family: 'Great Vibes', cursive; font-size: 1.3rem; line-height: 1.4;
+        }
+        /* Efek Solasi/Washi Tape di atas kertas */
+        .wish-note::before {
+            content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 25px; background: rgba(255, 215, 0, 0.5); /* Warna Emas Transparan */
+            opacity: 0.7; border-left: 2px dotted rgba(0,0,0,0.1); border-right: 2px dotted rgba(0,0,0,0.1);
+        }
+        .note-sender { font-family: 'Quicksand', sans-serif; font-weight: bold; font-size: 0.9rem; color: var(--primary); text-align: right; display: block; margin-top: 10px;}
+
+        /* --- TOMBOL DOWNLOAD BARU --- */
+        .btn-download {
+            display: block; width: 100%; margin-top: 20px; padding: 12px;
+            background: white; border: 2px solid var(--gold); color: var(--gold);
+            border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            text-align: center; text-decoration: none; font-family: 'Quicksand', sans-serif;
+        }
+        .btn-download:hover { background: var(--gold); color: white; }
+
+        footer { text-align: center; padding: 50px 20px; color: var(--primary); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <div class="falling-particles" id="particles"></div>
+
+    <audio id="bgMusic" loop>
+        <source src="Hbd.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-btn" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content" id="heroTilt">
+            <span class="sub-text">Special Day for a Special Lady</span>
+            <h1>Selamat Ulang Tahun, Ibu</h1>
+            <p>Cintamu adalah cahaya yang tak pernah padam dalam hidupku.</p>
+            <div style="font-size: 3rem; margin-top: 20px;">💖🌸🎂</div>
+        </div>
+    </section>
+
+    <div class="container">
+        
+        <h2 class="section-title script-font">Kartu Ucapan Spesial</h2>
+        <div class="card-section">
+            <div class="birthday-card" onclick="this.classList.toggle('opened')">
+                <div class="card-face card-front">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4525/4525679.png" alt="Bunga">
+                    <h2 class="script-font">Untuk Ibu</h2>
+                    <p class="click-hint"><i class="fas fa-hand-pointer"></i> Klik untuk membuka</p>
+                </div>
+                <div class="card-face card-inside">
+                    <h3>Ibu Tersayang,</h3>
+                    <p>"Di hari bahagiamu ini, kami hanya ingin mengucapkan terima kasih. Terima kasih telah menjadi rumah tempat kami pulang, dan hati yang selalu mengerti. Semoga kesehatan dan kebahagiaan selalu memelukmu."</p>
+                    <p style="margin-top:20px; font-weight:bold;">— Anakmu ❤ — </p>
+                </div>
+            </div>
+        </div>
+
+
+        <h2 class="section-title script-font">Momen Berharga</h2>
+        <div class="gallery-grid">
+            <div class="polaroid" style="--r:-3deg;" data-caption="Senyuman Hangat">
+                <img src="Img1.jpg" alt="Foto 1">
+            </div>
+            <div class="polaroid" style="--r:2deg;" data-caption="Liburan Keluarga">
+                <img src="Img2.jpg" alt="Foto 2">
+            </div>
+            <div class="polaroid" style="--r:-1deg;" data-caption="Cinta Kasih">
+                <img src="Img3.jpg" alt="Foto 3">
+            </div>
+        </div>
+
+
+        <h2 class="section-title script-font">Papan Doa & Harapan</h2>
+        <div class="wishes-layout">
+            
+            <div class="form-card">
+                <h3 style="text-align:center; color:var(--primary); margin-bottom:20px;">Kirim Ucapan</h3>
+                <form id="wishForm">
+                    <input type="text" id="namaInput" class="input-field" placeholder="Nama Pengirim" required>
+                    <textarea id="pesanInput" class="input-field" rows="5" placeholder="Tulis doa termanis di sini..." required></textarea>
+                    <button type="submit" class="btn-submit">Kirim ke Papan Doa ✨</button>
+                </form>
+            </div>
+
+            <div>
+                <div class="board-container" id="captureArea">
+                    <h3 style="text-align:center; font-family:'Great Vibes'; color:var(--gold); font-size:2rem; margin-bottom:20px;">~ Kenangan Ucapan ~</h3>
+                    <div class="wishes-list" id="wishesList">
+                        <p style="text-align:center; opacity:0.6;">Memuat doa-doa...</p>
+                    </div>
+                </div>
+                
+                <button class="btn-download" onclick="downloadWishes()">
+                    <i class="fas fa-camera"></i> Simpan Semua Ucapan sebagai Gambar
+                </button>
+                <p style="text-align:center; font-size:0.8rem; color:#999; margin-top:5px;">Klik untuk mengunduh kenangan digital ini.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>Made By: AppWebiatecth | Studioofficialridho - All Right Reserved</p>
+    </footer>
+
+
+    <script type="module">
+        // --- 1. SETUP FIREBASE ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } 
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // ===========================================================
+        // PENTING: MASUKKAN KONFIGURASI FIREBASE ANDA DI SINI LAGI!
+        // ===========================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyB_SVSRikno8wtrnp06p_2ENTA4dsis6Dg",
+  authDomain: "ucapan-ulang-tahun-d5b7f.firebaseapp.com",
+  projectId: "ucapan-ulang-tahun-d5b7f",
+  storageBucket: "ucapan-ulang-tahun-d5b7f.firebasestorage.app",
+  messagingSenderId: "802099201654",
+  appId: "1:802099201654:web:493571c6402e2daee28157",
+  measurementId: "G-W7S6KP1GVT"
+};
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const tableName = "ucapan_ultah_ibu_v2"; // Nama tabel di database
+
+        // --- 2. LOGIC KIRIM PESAN ---
+        const form = document.getElementById('wishForm');
+        const btnSubmit = document.querySelector('.btn-submit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+            btnSubmit.disabled = true;
+
+            try {
+                await addDoc(collection(db, tableName), {
+                    nama: document.getElementById('namaInput').value,
+                    pesan: document.getElementById('pesanInput').value,
+                    waktu: serverTimestamp()
+                });
+                form.reset();
+                // alert("Ucapan berhasil ditempel di papan! ✨"); // Optional alert
+            } catch (err) {
+                alert("Gagal mengirim. Cek koneksi internet.");
+                console.error(err);
+            } finally {
+                btnSubmit.innerHTML = 'Kirim ke Papan Doa/Ucapan ✨';
+                btnSubmit.disabled = false;
+            }
+        });
+
+        // --- 3. LOGIC BACA PESAN REALTIME (Tampilan Notes) ---
+        const q = query(collection(db, tableName), orderBy("waktu", "desc"));
+        const listContainer = document.getElementById('wishesList');
+
+        onSnapshot(q, (snapshot) => {
+            listContainer.innerHTML = "";
+            if (snapshot.empty) {
+                listContainer.innerHTML = "<p style='text-align:center; margin-top:20px;'>Belum ada ucapan. Jadilah yang pertama!</p>";
+                return;
+            }
+            
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                // Membuat tampilan seperti kertas catatan (Sticky Note)
+                const note = document.createElement('div');
+                note.className = 'wish-note';
+                note.innerHTML = `
+                    "${sanitize(data.pesan)}"
+                    <span class="note-sender">- ${sanitize(data.nama)}</span>
+                `;
+                listContainer.appendChild(note);
+            });
+        });
+
+        function sanitize(str) {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+
+    </script>
+
+    <script>
+        // --- A. GENERATE PARTIKEL LATAR BELAKANG ---
+        const particlesContainer = document.getElementById('particles');
+        for(let i=0; i<30; i++){
+            let p = document.createElement('div');
+            p.className = Math.random() > 0.5 ? 'particle p-gold' : 'particle p-petal';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+            particlesContainer.appendChild(p);
+        }
+
+        // --- B. EFEK 3D HERO ---
+        const hero = document.getElementById('heroTilt');
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            hero.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
+
+        // --- C. KONTROL MUSIK ---
+        const audio = document.getElementById('bgMusic');
+        const musicBtn = document.querySelector('.music-btn');
+        let isPlaying = false;
+        function toggleMusic() {
+            if(!isPlaying) { audio.play(); musicBtn.classList.add('playing'); musicBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+            else { audio.pause(); musicBtn.classList.remove('playing'); musicBtn.innerHTML = '<i class="fas fa-music"></i>'; }
+            isPlaying = !isPlaying;
+        }
+
+        // --- D. FITUR BARU: DOWNLOAD PAPAN UCAPAN (html2canvas) ---
+        function downloadWishes() {
+            const captureArea = document.getElementById('captureArea');
+            const btn = document.querySelector('.btn-download');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang memproses gambar...';
+            
+            // Gunakan library html2canvas untuk 'memotret' elemen div
+            html2canvas(captureArea, {
+                scale: 2, // Kualitas tinggi
+                backgroundColor: '#fff5f7', // Pastikan background ikut terfoto
+                useCORS: true // Izin untuk gambar eksternal jika ada
+            }).then(canvas => {
+                // Buat link download palsu
+                const link = document.createElement('a');
+                link.download = 'Kenangan-Ucapan-Ibu.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click(); // Klik otomatis
+                btn.innerHTML = '<i class="fas fa-check"></i> Berhasil Disimpan!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-camera"></i> Simpan Semua Ucapan sebagai Gambar';
+                }, 3000);
+            }).catch(err => {
+                alert("Maaf, gagal menyimpan gambar. Coba lagi nanti.");
+                btn.innerHTML = '<i class="fas fa-times"></i> Gagal';
+            });
+        }
+    </script>
+</body>
+</html>
