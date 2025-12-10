@@ -2,36 +2,51 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Selamat Ulang Tahun Ibu Tercinta</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
-        /* --- 1. SETTING TEMA PREMIUM --- */
+        /* --- 1. SETTING UTAMA & VARIABEL --- */
         :root {
-            --primary: #e84393; /* Pink Tua */
-            --secondary: #fd79a8; /* Pink Muda */
-            --gold: #d4af37;      /* Emas Mewah */
-            --bg-warm: #fff5f7;   /* Latar Hangat */
-            --glass: rgba(255, 255, 255, 0.8);
+            --primary: #e84393; 
+            --secondary: #fd79a8; 
+            --gold: #d4af37;      
+            --bg-warm: #fff5f7;   
+            --glass: rgba(255, 255, 255, 0.85);
             --shadow-soft: 0 10px 30px rgba(232, 67, 147, 0.15);
             --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
+        /* Mencegah seleksi teks (Anti-Copy) */
         body {
             font-family: 'Quicksand', sans-serif;
             background: radial-gradient(circle at top left, var(--bg-warm), #fdfbfb);
             color: #555;
             overflow-x: hidden;
             position: relative;
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
         }
 
-        /* --- LATAR BELAKANG PARTIKEL (Emas & Kelopak) --- */
+        /* PENGECUALIAN: Input form harus bisa diketik */
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        /* --- BACKGROUND PARTIKEL --- */
         .falling-particles {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; pointer-events: none; overflow: hidden;
@@ -48,143 +63,163 @@
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        /* --- TOMBOL MUSIK --- */
-        .music-btn {
-            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
-            width: 55px; height: 55px; border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--gold));
-            border: 2px solid white; color: white; font-size: 20px;
-            cursor: pointer; box-shadow: var(--shadow-gold);
-            display: flex; justify-content: center; align-items: center;
-            transition: 0.3s;
-        }
-        .music-btn.playing i { animation: spin 4s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* --- TYPOGRAPHY UMUM --- */
+        /* --- TYPOGRAPHY --- */
         h1, h2, .script-font { font-family: 'Great Vibes', cursive; font-weight: normal; }
         .section-title {
             text-align: center; font-size: 3rem; color: var(--primary);
-            margin: 80px 0 40px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin: 60px 0 30px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
 
         /* --- HERO SECTION --- */
         .hero {
-            min-height: 90vh; display: flex; align-items: center; justify-content: center;
-            perspective: 1000px; padding-top: 40px;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            perspective: 1000px; padding: 20px;
         }
         .hero-content {
-            text-align: center; background: var(--glass); padding: 60px 40px;
-            border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%; /* Bentuk organik */
-            backdrop-filter: blur(8px); border: 2px solid rgba(255,255,255,0.5);
-            box-shadow: var(--shadow-soft), inset 0 0 20px rgba(255,255,255,0.5);
-            transform-style: preserve-3d; transition: transform 0.2s ease-out;
+            text-align: center; background: var(--glass); padding: 50px 30px;
+            border-radius: 40px; /* Lebih simpel agar aman di mobile */
+            backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.6);
+            box-shadow: var(--shadow-soft);
+            max-width: 90%;
+            transform-style: preserve-3d; transition: transform 0.1s ease-out;
         }
-        .hero h1 { font-size: 5rem; background: linear-gradient(to right, var(--primary), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; }
-        .hero p { font-size: 1.3rem; margin-top: 10px; color: #777; }
-        .sub-text { font-family: 'Parisienne', cursive; font-size: 2rem; color: var(--gold); margin-bottom: 10px; display: block;}
+        .hero h1 { 
+            font-size: 4.5rem; 
+            background: linear-gradient(to right, var(--primary), var(--gold)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            line-height: 1.1; margin: 10px 0;
+        }
+        .hero p { font-size: 1.2rem; margin-top: 10px; color: #777; }
+        .sub-text { font-family: 'Parisienne', cursive; font-size: 1.8rem; color: var(--gold); display: block;}
 
-        /* --- FITUR BARU: KARTU ULANG TAHUN 3D --- */
-        .card-section { perspective: 1500px; display: flex; justify-content: center; margin: 50px 0; }
+        /* --- KARTU 3D --- */
+        .card-section { perspective: 1500px; display: flex; justify-content: center; margin: 40px 0; }
         .birthday-card {
-            width: 350px; height: 450px; position: relative;
+            width: 320px; height: 450px; position: relative;
             transform-style: preserve-3d; transition: transform 1s; cursor: pointer;
         }
-        .birthday-card.opened { transform: rotateY(-160deg); } /* Efek membuka */
-
+        .birthday-card.opened { transform: rotateY(-160deg); }
         .card-face {
             position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
             border-radius: 15px; overflow: hidden; box-shadow: var(--shadow-gold);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             border: 3px solid var(--gold); background: white;
         }
-        /* Bagian Depan Kartu */
-        .card-front {
-            background: linear-gradient(135deg, #fff0f6 0%, #fff 100%); z-index: 2;
-        }
-        .card-front h2 { font-size: 3.5rem; color: var(--primary); margin-top: 20px;}
-        .card-front img { width: 80%; margin-bottom: 20px; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));}
+        .card-front { background: linear-gradient(135deg, #fff0f6 0%, #fff 100%); z-index: 2; }
+        .card-front h2 { font-size: 3rem; color: var(--primary); margin-top: 20px;}
+        .card-front img { width: 70%; margin-bottom: 20px; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));}
         .click-hint { position: absolute; bottom: 20px; font-size: 0.9rem; color: var(--gold); animation: pulse 1.5s infinite; }
         
-        /* Bagian Dalam Kartu (Muncul saat dibuka) */
         .card-inside {
-            transform: rotateY(180deg); z-index: 1; background: #fffaf0; padding: 30px; text-align: center;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            transform: rotateY(180deg); z-index: 1; background: #fffaf0; padding: 25px; text-align: center;
+            /* Pola background */
+            background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 20px 20px;
         }
-        .card-inside h3 { font-family: 'Parisienne', cursive; font-size: 2.2rem; color: var(--primary); margin-bottom: 20px; }
-        .card-inside p { font-size: 1.1rem; line-height: 1.8; color: #666; font-style: italic;}
+        .card-inside h3 { font-family: 'Parisienne', cursive; font-size: 2rem; color: var(--primary); margin-bottom: 15px; }
+        .card-inside p { font-size: 1rem; line-height: 1.6; color: #666; font-style: italic;}
 
         @keyframes pulse { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
 
-        /* --- GALERI POLAROID CANTIK --- */
-        .gallery-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+        /* --- GALERI POLAROID --- */
+        .gallery-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; }
         .polaroid {
-            background: white; padding: 15px 15px 50px 15px; box-shadow: var(--shadow-soft);
+            background: white; padding: 10px 10px 45px 10px; box-shadow: var(--shadow-soft);
             transform: rotate(var(--r)); transition: 0.4s ease-in-out; position: relative; z-index: 1;
+            width: 200px; /* Ukuran fix agar rapi */
         }
         .polaroid:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 10; box-shadow: var(--shadow-gold); }
-        .polaroid img { width: 250px; height: 250px; object-fit: cover; filter: sepia(20%); }
-        .polaroid::after { content: attr(data-caption); position: absolute; bottom: 15px; width: 100%; text-align: center; left: 0; font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: #777; }
+        .polaroid img { width: 100%; height: 200px; object-fit: cover; filter: sepia(10%); border-radius: 2px;}
+        .polaroid::after { 
+            content: attr(data-caption); position: absolute; bottom: 10px; width: 100%; 
+            text-align: center; left: 0; font-family: 'Great Vibes', cursive; font-size: 1.3rem; color: #555; 
+        }
 
-        /* --- UCAPAN & DATABASE SECTION --- */
-        .wishes-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;}
-        @media (max-width: 768px) { .wishes-layout { grid-template-columns: 1fr; } }
+        /* --- FORM & WISHES --- */
+        .wishes-layout { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; margin-bottom: 50px;
+        }
 
-        /* Form Styling */
-        .form-card { background: white; padding: 35px; border-radius: 20px; box-shadow: var(--shadow-gold); border: 2px solid var(--gold); }
+        .form-card { background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow-gold); border: 2px solid var(--gold); }
         .input-field { 
-            width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #eee; 
-            border-radius: 10px; font-family: inherit; transition: 0.3s; background: #fffaf0;
+            width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid #eee; 
+            border-radius: 10px; font-family: inherit; transition: 0.3s; background: #fffaf0; font-size: 1rem;
         }
         .input-field:focus { border-color: var(--primary); outline: none; background: white; }
+        
         .btn-submit {
-            width: 100%; padding: 15px; background: linear-gradient(to right, var(--primary), var(--gold));
-            border: none; border-radius: 50px; color: white; font-weight: bold; font-size: 1.1rem;
+            width: 100%; padding: 12px; background: linear-gradient(to right, var(--primary), var(--gold));
+            border: none; border-radius: 50px; color: white; font-weight: bold; font-size: 1rem;
             cursor: pointer; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); transition: 0.3s;
         }
-        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.6); }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6); }
 
-        /* Papan Ucapan (Wishes Board) */
+        /* Papan Ucapan */
         .board-container {
-            background: white; border-radius: 20px; padding: 30px;
+            background: white; border-radius: 20px; padding: 25px;
             box-shadow: var(--shadow-soft); position: relative;
             border: 1px dashed var(--gold);
-            /* Background pattern halus untuk hasil download yang bagus */
             background-image: radial-gradient(#e84393 0.5px, transparent 0.5px), radial-gradient(#e84393 0.5px, #ffffff 0.5px);
             background-size: 20px 20px; background-position: 0 0, 10px 10px;
         }
-        .wishes-list { max-height: 500px; overflow-y: auto; padding-right: 10px; }
-        /* Custom Scrollbar */
-        .wishes-list::-webkit-scrollbar { width: 8px; }
-        .wishes-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        .wishes-list { max-height: 500px; overflow-y: auto; padding-right: 5px; }
+        .wishes-list::-webkit-scrollbar { width: 6px; }
+        .wishes-list::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 10px; }
 
         .wish-note {
-            background: #fff; padding: 20px; margin-bottom: 20px; position: relative;
-            border-radius: 2px; box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
-            font-family: 'Great Vibes', cursive; font-size: 1.3rem; line-height: 1.4;
+            background: #fff; padding: 15px; margin-bottom: 15px; position: relative;
+            border-radius: 2px; box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            font-family: 'Great Vibes', cursive; font-size: 1.3rem; line-height: 1.4; color: #333;
         }
-        /* Efek Solasi/Washi Tape di atas kertas */
-        .wish-note::before {
-            content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            width: 80px; height: 25px; background: rgba(255, 215, 0, 0.5); /* Warna Emas Transparan */
-            opacity: 0.7; border-left: 2px dotted rgba(0,0,0,0.1); border-right: 2px dotted rgba(0,0,0,0.1);
+        .wish-note::before { /* Efek Solasi */
+            content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 20px; background: rgba(255, 215, 0, 0.4); 
+            border-left: 2px dotted rgba(0,0,0,0.1); border-right: 2px dotted rgba(0,0,0,0.1);
         }
-        .note-sender { font-family: 'Quicksand', sans-serif; font-weight: bold; font-size: 0.9rem; color: var(--primary); text-align: right; display: block; margin-top: 10px;}
+        .note-sender { font-family: 'Quicksand', sans-serif; font-weight: bold; font-size: 0.8rem; color: var(--primary); text-align: right; display: block; margin-top: 8px;}
 
-        /* --- TOMBOL DOWNLOAD BARU --- */
+        /* --- BUTTONS --- */
         .btn-download {
-            display: block; width: 100%; margin-top: 20px; padding: 12px;
+            display: block; width: 100%; margin-top: 15px; padding: 12px;
             background: white; border: 2px solid var(--gold); color: var(--gold);
             border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s;
-            text-align: center; text-decoration: none; font-family: 'Quicksand', sans-serif;
+            text-align: center; font-size: 0.95rem;
         }
         .btn-download:hover { background: var(--gold); color: white; }
 
-        footer { text-align: center; padding: 50px 20px; color: var(--primary); font-size: 0.9rem; }
+        .music-btn {
+            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            border: 2px solid white; color: white; font-size: 18px;
+            cursor: pointer; box-shadow: var(--shadow-gold);
+            display: flex; justify-content: center; align-items: center;
+        }
+        .music-btn.playing i { animation: spin 4s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        footer { text-align: center; padding: 40px 20px; color: var(--primary); font-size: 0.8rem; }
+
+        /* --- RESPONSIVE CSS (MOBILE) --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            .section-title { font-size: 2.5rem; margin: 40px 0 20px; }
+            
+            .wishes-layout { grid-template-columns: 1fr; } /* Stack ke bawah */
+            
+            .birthday-card { width: 90%; height: 400px; }
+            .card-inside h3 { font-size: 1.8rem; }
+            
+            .polaroid { width: 45%; padding-bottom: 35px; } /* Polaroid jadi 2 kolom */
+            .polaroid img { height: 150px; }
+            .polaroid::after { font-size: 1rem; }
+            
+            .container { padding: 15px; }
+            .hero-content { padding: 30px 20px; border-radius: 20px; }
+        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div class="falling-particles" id="particles"></div>
 
@@ -200,7 +235,7 @@
             <span class="sub-text">Special Day for a Special Lady</span>
             <h1>Selamat Ulang Tahun, Ibu</h1>
             <p>Cintamu adalah cahaya yang tak pernah padam dalam hidupku.</p>
-            <div style="font-size: 3rem; margin-top: 20px;">💖🌸🎂</div>
+            <div style="font-size: 2.5rem; margin-top: 15px;">💖🌸🎂</div>
         </div>
     </section>
 
@@ -212,12 +247,12 @@
                 <div class="card-face card-front">
                     <img src="https://cdn-icons-png.flaticon.com/512/4525/4525679.png" alt="Bunga">
                     <h2 class="script-font">Untuk Ibu</h2>
-                    <p class="click-hint"><i class="fas fa-hand-pointer"></i> Klik untuk membuka</p>
+                    <p class="click-hint"><i class="fas fa-hand-pointer"></i> Ketuk untuk membuka</p>
                 </div>
                 <div class="card-face card-inside">
                     <h3>Ibu Tersayang,</h3>
-                    <p>"Di hari bahagiamu ini, saya hanya ingin mengucapkan terima kasih. Terima kasih telah menjadi rumah tempat saya pulang, dan hati yang selalu mengerti. Semoga kesehatan dan kebahagiaan selalu memelukmu."</p>
-                    <p style="margin-top:20px; font-weight:bold;">— Anakmu ❤ — </p>
+                    <p>"Di hari bahagiamu ini, aku hanya ingin mengucapkan terima kasih. Terima kasih telah menjadi rumah tempatku pulang. Semoga kesehatan dan kebahagiaan selalu memelukmu bu."</p>
+                    <p style="margin-top:20px; font-weight:bold; font-size:0.9rem;">— Anakmu Tercinta ❤ — </p>
                 </div>
             </div>
         </div>
@@ -226,13 +261,13 @@
         <h2 class="section-title script-font">Momen Berharga</h2>
         <div class="gallery-grid">
             <div class="polaroid" style="--r:-3deg;" data-caption="Senyuman Hangat">
-                <img src="Img1.jpg" alt="Foto 1">
+                <img src="Img1.jpg" onerror="this.src='https://images.unsplash.com/photo-1490750967868-58cb75063ed4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'" alt="Foto 1">
             </div>
             <div class="polaroid" style="--r:2deg;" data-caption="Liburan Keluarga">
-                <img src="Img2.jpg" alt="Foto 2">
+                <img src="Img2.jpg" onerror="this.src='https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'" alt="Foto 2">
             </div>
             <div class="polaroid" style="--r:-1deg;" data-caption="Cinta Kasih">
-                <img src="Img3.jpg" alt="Foto 3">
+                <img src="Img3.jpg" onerror="this.src='https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'" alt="Foto 3">
             </div>
         </div>
 
@@ -241,26 +276,26 @@
         <div class="wishes-layout">
             
             <div class="form-card">
-                <h3 style="text-align:center; color:var(--primary); margin-bottom:20px;">Kirim Ucapan</h3>
+                <h3 style="text-align:center; color:var(--primary); margin-bottom:15px; font-family:'Great Vibes'; font-size:2rem;">Kirim Ucapan</h3>
                 <form id="wishForm">
-                    <input type="text" id="namaInput" class="input-field" placeholder="Nama Pengirim" required>
-                    <textarea id="pesanInput" class="input-field" rows="5" placeholder="Tulis doa termanis di sini..." required></textarea>
-                    <button type="submit" class="btn-submit">Kirim ke Papan Doa ✨</button>
+                    <input type="text" id="namaInput" class="input-field" placeholder="Nama Pengirim" required autocomplete="off">
+                    <textarea id="pesanInput" class="input-field" rows="4" placeholder="Tulis doa termanis di sini..." required></textarea>
+                    <button type="submit" class="btn-submit">Tempel di Papan ✨</button>
                 </form>
             </div>
 
             <div>
                 <div class="board-container" id="captureArea">
-                    <h3 style="text-align:center; font-family:'Great Vibes'; color:var(--gold); font-size:2rem; margin-bottom:20px;">~ Kenangan Ucapan ~</h3>
+                    <h3 style="text-align:center; font-family:'Great Vibes'; color:var(--gold); font-size:2rem; margin-bottom:15px;">~ Kenangan Ucapan ~</h3>
                     <div class="wishes-list" id="wishesList">
-                        <p style="text-align:center; opacity:0.6;">Memuat doa-doa...</p>
+                        <p style="text-align:center; opacity:0.6; font-size:0.9rem;">Memuat doa-doa...</p>
                     </div>
                 </div>
                 
                 <button class="btn-download" onclick="downloadWishes()">
-                    <i class="fas fa-camera"></i> Simpan Semua Ucapan sebagai Gambar
+                    <i class="fas fa-camera"></i> Simpan Papan Ucapan
                 </button>
-                <p style="text-align:center; font-size:0.8rem; color:#999; margin-top:5px;">Klik untuk mengunduh kenangan digital ini.</p>
+                <p style="text-align:center; font-size:0.75rem; color:#999; margin-top:5px;">Klik untuk mengunduh kenangan ini.</p>
             </div>
 
         </div>
@@ -272,29 +307,26 @@
 
 
     <script type="module">
-        // --- 1. SETUP FIREBASE ---
+        // --- KONFIGURASI FIREBASE (JANGAN DIHAPUS) ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } 
         from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // ===========================================================
-        // PENTING: MASUKKAN KONFIGURASI FIREBASE ANDA DI SINI LAGI!
-        // ===========================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyB_SVSRikno8wtrnp06p_2ENTA4dsis6Dg",
-  authDomain: "ucapan-ulang-tahun-d5b7f.firebaseapp.com",
-  projectId: "ucapan-ulang-tahun-d5b7f",
-  storageBucket: "ucapan-ulang-tahun-d5b7f.firebasestorage.app",
-  messagingSenderId: "802099201654",
-  appId: "1:802099201654:web:493571c6402e2daee28157",
-  measurementId: "G-W7S6KP1GVT"
-};
+        const firebaseConfig = {
+          apiKey: "AIzaSyB_SVSRikno8wtrnp06p_2ENTA4dsis6Dg",
+          authDomain: "ucapan-ulang-tahun-d5b7f.firebaseapp.com",
+          projectId: "ucapan-ulang-tahun-d5b7f",
+          storageBucket: "ucapan-ulang-tahun-d5b7f.firebasestorage.app",
+          messagingSenderId: "802099201654",
+          appId: "1:802099201654:web:493571c6402e2daee28157",
+          measurementId: "G-W7S6KP1GVT"
+        };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const tableName = "ucapan_ultah_ibu_v2"; // Nama tabel di database
+        const tableName = "ucapan_ultah_ibu_v2"; 
 
-        // --- 2. LOGIC KIRIM PESAN ---
+        // --- LOGIC KIRIM PESAN ---
         const form = document.getElementById('wishForm');
         const btnSubmit = document.querySelector('.btn-submit');
 
@@ -309,31 +341,30 @@ const firebaseConfig = {
                     pesan: document.getElementById('pesanInput').value,
                     waktu: serverTimestamp()
                 });
-                form.reset();
-                // alert("Ucapan berhasil ditempel di papan! ✨"); // Optional alert
+                document.getElementById('pesanInput').value = ""; // Reset pesan saja, nama biarin
+                // alert("Berhasil!"); 
             } catch (err) {
                 alert("Gagal mengirim. Cek koneksi internet.");
                 console.error(err);
             } finally {
-                btnSubmit.innerHTML = 'Kirim ke Papan Doa/Ucapan ✨';
+                btnSubmit.innerHTML = 'Tempel di Papan ✨';
                 btnSubmit.disabled = false;
             }
         });
 
-        // --- 3. LOGIC BACA PESAN REALTIME (Tampilan Notes) ---
+        // --- LOGIC BACA PESAN REALTIME ---
         const q = query(collection(db, tableName), orderBy("waktu", "desc"));
         const listContainer = document.getElementById('wishesList');
 
         onSnapshot(q, (snapshot) => {
             listContainer.innerHTML = "";
             if (snapshot.empty) {
-                listContainer.innerHTML = "<p style='text-align:center; margin-top:20px;'>Belum ada ucapan. Jadilah yang pertama!</p>";
+                listContainer.innerHTML = "<p style='text-align:center; padding:20px;'>Belum ada ucapan. Jadilah yang pertama!</p>";
                 return;
             }
             
             snapshot.forEach(doc => {
                 const data = doc.data();
-                // Membuat tampilan seperti kertas catatan (Sticky Note)
                 const note = document.createElement('div');
                 note.className = 'wish-note';
                 note.innerHTML = `
@@ -345,17 +376,33 @@ const firebaseConfig = {
         });
 
         function sanitize(str) {
+            if(!str) return "";
             const temp = document.createElement('div');
             temp.textContent = str;
             return temp.innerHTML;
         }
-
     </script>
 
     <script>
-        // --- A. GENERATE PARTIKEL LATAR BELAKANG ---
+        // --- 1. SCRIPT PELINDUNG (ANTI-STEAL) ---
+        // Mematikan F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { // F12
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0))) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // View Source
+                return false;
+            }
+        };
+
+        // --- 2. PARTIKEL LATAR BELAKANG ---
         const particlesContainer = document.getElementById('particles');
-        for(let i=0; i<30; i++){
+        const particleCount = window.innerWidth < 768 ? 15 : 30; // Kurangi partikel di HP biar ringan
+        
+        for(let i=0; i<particleCount; i++){
             let p = document.createElement('div');
             p.className = Math.random() > 0.5 ? 'particle p-gold' : 'particle p-petal';
             p.style.left = Math.random() * 100 + 'vw';
@@ -364,50 +411,76 @@ const firebaseConfig = {
             particlesContainer.appendChild(p);
         }
 
-        // --- B. EFEK 3D HERO ---
-        const hero = document.getElementById('heroTilt');
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.pageX) / 50;
-            const y = (window.innerHeight / 2 - e.pageY) / 50;
-            hero.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-        });
+        // --- 3. EFEK 3D HERO (Hanya aktif di Desktop) ---
+        if(window.innerWidth > 768) {
+            const hero = document.getElementById('heroTilt');
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.pageX) / 60;
+                const y = (window.innerHeight / 2 - e.pageY) / 60;
+                hero.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+            });
+        }
 
-        // --- C. KONTROL MUSIK ---
+        // --- 4. MUSIK PLAYER ---
         const audio = document.getElementById('bgMusic');
         const musicBtn = document.querySelector('.music-btn');
         let isPlaying = false;
+        
         function toggleMusic() {
-            if(!isPlaying) { audio.play(); musicBtn.classList.add('playing'); musicBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
-            else { audio.pause(); musicBtn.classList.remove('playing'); musicBtn.innerHTML = '<i class="fas fa-music"></i>'; }
+            if(!isPlaying) { 
+                audio.play().catch(e => alert("Silakan interaksi dengan layar dulu agar musik bisa diputar."));
+                musicBtn.classList.add('playing'); 
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>'; 
+            } else { 
+                audio.pause(); 
+                musicBtn.classList.remove('playing'); 
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>'; 
+            }
             isPlaying = !isPlaying;
         }
 
-        // --- D. FITUR BARU: DOWNLOAD PAPAN UCAPAN (html2canvas) ---
+        // --- 5. LOGIC DOWNLOAD GAMBAR (Fix Scroll Issue) ---
         function downloadWishes() {
             const captureArea = document.getElementById('captureArea');
+            const wishesList = document.getElementById('wishesList');
             const btn = document.querySelector('.btn-download');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang memproses gambar...';
             
-            // Gunakan library html2canvas untuk 'memotret' elemen div
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            
+            // Simpan style asli
+            const originalMaxHeight = wishesList.style.maxHeight;
+            const originalOverflow = wishesList.style.overflow;
+
+            // Buka scroll agar semua konten terlihat oleh kamera html2canvas
+            wishesList.style.maxHeight = "none";
+            wishesList.style.overflow = "visible";
+
             html2canvas(captureArea, {
-                scale: 2, // Kualitas tinggi
-                backgroundColor: '#fff5f7', // Pastikan background ikut terfoto
-                useCORS: true // Izin untuk gambar eksternal jika ada
+                scale: 2, 
+                backgroundColor: '#fff', 
+                useCORS: true 
             }).then(canvas => {
-                // Buat link download palsu
+                // Kembalikan style scroll
+                wishesList.style.maxHeight = originalMaxHeight;
+                wishesList.style.overflow = originalOverflow;
+
                 const link = document.createElement('a');
                 link.download = 'Kenangan-Ucapan-Ibu.png';
                 link.href = canvas.toDataURL('image/png');
-                link.click(); // Klik otomatis
-                btn.innerHTML = '<i class="fas fa-check"></i> Berhasil Disimpan!';
+                link.click();
+                
+                btn.innerHTML = '<i class="fas fa-check"></i> Tersimpan!';
                 setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-camera"></i> Simpan Semua Ucapan sebagai Gambar';
+                    btn.innerHTML = '<i class="fas fa-camera"></i> Simpan Papan Ucapan';
                 }, 3000);
             }).catch(err => {
-                alert("Maaf, gagal menyimpan gambar. Coba lagi nanti.");
+                console.error(err);
                 btn.innerHTML = '<i class="fas fa-times"></i> Gagal';
+                // Kembalikan style jika error
+                wishesList.style.maxHeight = originalMaxHeight;
+                wishesList.style.overflow = originalOverflow;
             });
         }
     </script>
 </body>
-</html>
+                            </html>
